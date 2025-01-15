@@ -21,11 +21,6 @@ from ittacademy import views as itta
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('bud/', views.bud, name='Bronchi Ulceration Detection'),
-    path('auth/', views.auth, name='AUTH'),
-    path('pbm/', views.pbm, name='PBM'),
-    path('success/', views.success, name='success'),
     path(f'user', itta.create_user, name='create_user')
-      
 ]
 
