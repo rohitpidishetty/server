@@ -20,6 +20,7 @@ from ittacademy import views as itta
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(f'user', itta.create_user, name='create_user')
+    path(f'user', itta.create_user, name='create_user'),
+    path(f'approval', itta.approval, name='approval') 
 ]
 
