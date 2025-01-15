@@ -16,7 +16,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from bronchi_ulceration_detection import views
 from ittacademy import views as itta
 
 urlpatterns = [
