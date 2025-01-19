@@ -4,8 +4,7 @@ from getstream import Stream
 import os
 import json
 import firebase_admin
-from firebase_admin import credentials
-from firebase import db
+from firebase_admin import credentials, db
 
 API_KEY = os.getenv("API_KEY")
 API_SECRET = os.getenv("API_SECRET")
