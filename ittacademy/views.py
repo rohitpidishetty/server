@@ -21,7 +21,7 @@ def create_user(request):
         mail = request.GET.get('mail')
         if not mail:
             return JsonResponse({"error": "Email not provided."}, status=400)
-        status = ref.get('approval')
+        status = ref.get('approval')[0].get('approval')
         name = mail[:mail.index('@')].strip()
         client = Stream(api_key=API_KEY, api_secret=API_SECRET, timeout=3.0)
         token = client.create_token(user_id=f"{name}-id")
