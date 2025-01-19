@@ -4,6 +4,7 @@ dataclasses-json==0.6.7
 Django==5.1.4
 django-cors-headers==4.6.0
 firebase-admin==6.6.0
+firebase==4.0.1
 getstream==1.2.0
 google-api-core==2.24.0
 google-api-python-client==2.159.0
