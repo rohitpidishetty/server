@@ -22,7 +22,7 @@ def create_user(request):
             'databaseURL': 'https://itt-academy-default-rtdb.firebaseio.com/' 
         })
         ref = db.reference('/')
-        data = str(ref.get())
+        status = ref.get('approval')
         name = mail[:mail.index('@')].strip()
         client = Stream(api_key=API_KEY, api_secret=API_SECRET, timeout=3.0)
         token = client.create_token(user_id=f"{name}-id")
@@ -33,7 +33,7 @@ def create_user(request):
             "token": token, 
             "user_id": f'{name}-id', 
             "api": API_KEY, 
-            "approved": data
+            "approved": status
         })
         return response
 
