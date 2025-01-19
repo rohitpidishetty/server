@@ -7,8 +7,8 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase import db
 
-API_KEY = 'sasejsckcqxg'
-API_SECRET = '29wa6nxaw5bycfk96q45trrbbaz6bazujdecwcgj8jfkbrkuxw7emavamur36erm'
+API_KEY = os.getenv("API_KEY")
+API_SECRET = os.getenv("API_SECRET")
 
 
 @csrf_exempt
@@ -44,7 +44,7 @@ def create_user(request):
             "universe_domain": UNIVERSE_DOMAIN
         }
 
-        cred = credentials.Certificate(service_account_info)
+        # cred = credentials.Certificate(service_account_info)
         # firebase_admin.initialize_app(cred, {
         #     'databaseURL': 'https://itt-academy-default-rtdb.firebaseio.com/' 
         # })
