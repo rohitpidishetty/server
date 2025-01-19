@@ -43,11 +43,11 @@ def create_user(request):
             "universe_domain": UNIVERSE_DOMAIN
         }
 
-        # cred = credentials.Certificate(service_account_info)
-        # firebase_admin.initialize_app(cred, {
-        #     'databaseURL': 'https://itt-academy-default-rtdb.firebaseio.com/' 
-        # })
-        # ref = db.reference('/')
+        cred = credentials.Certificate(service_account_info)
+        firebase_admin.initialize_app(cred, {
+            'databaseURL': 'https://itt-academy-default-rtdb.firebaseio.com/' 
+        })
+        ref = db.reference('/')
         
         name = mail[:mail.index('@')].strip()
         client = Stream(api_key=API_KEY, api_secret=API_SECRET, timeout=3.0)
@@ -60,7 +60,7 @@ def create_user(request):
             "user_id": f'{name}-id', 
             "api": API_KEY, 
             "approved": status,
-            "test": UNIVERSE_DOMAIN
+            "test": str(ref.get())
         })
         return response
 
