@@ -8,7 +8,7 @@ from firebase_admin import credentials, db
 
 API_KEY = os.getenv("API_KEY")
 API_SECRET = os.getenv("API_SECRET")
-
+FIREBASE  =  json.loads(os.getenv("FIREBASE_PRIVATE_KEY"))
 
 @csrf_exempt
 def create_user(request):
@@ -17,9 +17,7 @@ def create_user(request):
         if not mail:
             return JsonResponse({"error": "Email not provided."}, status=400)
 
-        service_acc_info =  os.getenv("FIREBASE_PRIVATE_KEY")
-
-        cred = credentials.Certificate(service_acc_info)
+        cred = credentials.Certificate(FIREBASE)
         firebase_admin.initialize_app(cred, {
             'databaseURL': 'https://itt-academy-default-rtdb.firebaseio.com/' 
         })
