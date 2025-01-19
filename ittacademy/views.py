@@ -17,6 +17,7 @@ def create_user(request):
         mail = request.GET.get('mail')
         if not mail:
             return JsonResponse({"error": "Email not provided."}, status=400)
+        
         TYPE = os.getenv("TYPE")
         PROJECT_ID = os.getenv("PROJECT_ID")
         PRIVATE_KEY_ID = os.getenv("PRIVATE_KEY_ID")
@@ -47,20 +48,20 @@ def create_user(request):
         firebase_admin.initialize_app(cred, {
             'databaseURL': 'https://itt-academy-default-rtdb.firebaseio.com/' 
         })
-        ref = db.reference('/')
+        # ref = db.reference('/')
         
         name = mail[:mail.index('@')].strip()
         client = Stream(api_key=API_KEY, api_secret=API_SECRET, timeout=3.0)
         token = client.create_token(user_id=f"{name}-id")
         file = open('./approval.txt', 'r')
-        status = file.read().strip()  # Assuming a static value for approval status; adjust as needed
+        status = file.read().strip()  
         response = JsonResponse({
             "user": name, 
             "token": token, 
             "user_id": f'{name}-id', 
             "api": API_KEY, 
             "approved": status,
-            "test": str(reg.get())
+            "test": UNIVERSE_DOMAIN
         })
         return response
 
