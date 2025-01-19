@@ -39,5 +39,11 @@ def create_user(request):
 
 def approval(request):
     if request.method == 'GET':
-        ref.set({'approval':request.GET.get('status')})
-        return JsonResponse({"state": "changed"})
+        new_state = request.GET.get('status')
+        state = {}
+        try:
+            ref.set({'approval':new_state})
+            state = {"state": new_state}
+        except Exception as e:
+            state = {"state": "unchanged"}
+        return JsonResponse(state)
