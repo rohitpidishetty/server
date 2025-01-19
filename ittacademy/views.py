@@ -45,9 +45,9 @@ def create_user(request):
         }
 
         cred = credentials.Certificate(service_account_info)
-        firebase_admin.initialize_app(cred, {
-            'databaseURL': 'https://itt-academy-default-rtdb.firebaseio.com/' 
-        })
+        # firebase_admin.initialize_app(cred, {
+        #     'databaseURL': 'https://itt-academy-default-rtdb.firebaseio.com/' 
+        # })
         # ref = db.reference('/')
         
         name = mail[:mail.index('@')].strip()
