@@ -53,10 +53,11 @@ def purchase(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            details = data['payload']
+            details = data['payload']['details']
+            name = details['name']
  
           
-            return JsonResponse({"details": details})
+            return JsonResponse({"details": name})
         except Exception as e:
             return JsonResponse({"message": "Server broke"}, status=400)
         
