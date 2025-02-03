@@ -53,15 +53,15 @@ def purchase(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            details = data.get("payload")
-            name = details.get("name")
-            email = details.get("email")
-            phone = details.get("phone")
-            order = details.get("order")
-            previous_price = order.get("previous_price")
-            price = order.get("price")
-            product = order.get("product")
-            return JsonResponse({"details": product})
+            # details = data.get("payload")
+            # name = details.get("name")
+            # email = details.get("email")
+            # phone = details.get("phone")
+            # order = details.get("order")
+            # previous_price = order.get("previous_price")
+            # price = order.get("price")
+            # product = order.get("product")
+            return JsonResponse({"details": data['payload']})
         except Exception as e:
             return JsonResponse({"message": "Server broke"}, status=400)
         
