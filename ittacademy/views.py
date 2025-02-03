@@ -47,3 +47,20 @@ def approval(request):
         except Exception as e:
             state = {"state": "unchanged"}
         return JsonResponse(state)
+
+def purchase(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            payload = data.get("payload", {})
+            email = payload.get("email")
+            name = payload.get("name")
+            order = payload.get("order", {})
+            previous_price = order.get("previous_price")
+            price = order.get("price")
+            product = order.get("product")
+            phone = payload.get("phone")
+            return JsonResponse({"details": [payload, email, name, order]})
+        except Exception as e:
+            return JsonResponse({"message": "Server broke"}, status=400)
+        
