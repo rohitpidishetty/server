@@ -117,7 +117,7 @@ def purchase(request):
                     <h2>Merchandise Request</h2>
                 </div>
                 <div class="content">
-                    <img src= 'https://itt-academy.web.app/merchandise/{image}' />
+                    <img src='https://itt-academy.web.app/merchandise/{image}' />
                     <p><strong>Name:</strong> {name}</p>
                     <p><strong>Email:</strong> {email}</p>
                     <p><strong>Phone:</strong> {phone}</p>
