@@ -129,8 +129,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    "https://itt-academy.web.app"
-    # ,
+    "https://itt-academy.web.app",
     "http://localhost:3000/"
 ]
 
