@@ -68,14 +68,76 @@ def purchase(request):
             order = details['order']
             product = order['product']
             price = order['price']
+            image = order['image']
             previous_price = order['previous_price']
             try:
-                message = f'NAME: {name}\nEMAIL: {email}\n PHONE: {phone}\nPRODUCT: {product}\nPRICE: {price}\nPREVIOUS PRICE: {previous_price}'
+                message = f"""
+        <html>
+        <head>
+            <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f9;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                }}
+                .container {{
+                    width: 100%;
+                    max-width: 600px;
+                    margin: 0 auto;
+                    background-color: #fff;
+                    padding: 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                }}
+                .header {{
+                    text-align: center;
+                    color: #0066cc;
+                }}
+                .content {{
+                    margin-top: 20px;
+                }}
+                .content p {{
+                    font-size: 16px;
+                    line-height: 1.5;
+                    margin: 8px 0;
+                }}
+                .footer {{
+                    margin-top: 30px;
+                    font-size: 14px;
+                    text-align: center;
+                    color: #888;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h2>Merchandise Request</h2>
+                </div>
+                <div class="content">
+                    <img src= 'https://itt-academy.web.app/merchandise/{image}' />
+                    <p><strong>Name:</strong> {name}</p>
+                    <p><strong>Email:</strong> {email}</p>
+                    <p><strong>Phone:</strong> {phone}</p>
+                    <p><strong>Product:</strong> {product}</p>
+                    <p><strong>Price:</strong> {price}</p>
+                    <p><strong>Previous Price:</strong> {previous_price}</p>
+                </div>
+                <div class="footer">
+                    <p>This is an automated message. Please do not reply.</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        """
+
                 msg = MIMEMultipart()
                 msg["From"] = EMAIL_ADDRESS
                 msg["To"] = 'rohitpidishetty@gmail.com'
                 msg["Subject"] = f'Merchandise request by {name}'
-                msg.attach(MIMEText(message, "plain"))
+                msg.attach(MIMEText(message, "html"))
                 server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
                 server.starttls()  # Secure connection
                 server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)  # Login
