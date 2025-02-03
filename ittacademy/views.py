@@ -85,7 +85,7 @@ def purchase(request):
                 server.quit()
                 return JsonResponse({"status": 200})
             except Exception as e:
-                return JsonResponse({"status": 400})
+                return JsonResponse({"status": 400, 'err': e})
         except Exception as e:
-            return JsonResponse({"status": 400})
+            return JsonResponse({"status": 400, 'err2': e})
         
