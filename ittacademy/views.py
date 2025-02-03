@@ -71,21 +71,21 @@ def purchase(request):
             product = order['product']
             price = order['price']
             previous_price = order['previous_price']
-            try:
-                message = f'NAME: {name}\nEMAIL: {email}\n PHONE: {phone}\nPRODUCT: {product}\nPRICE: {price}\nPREVIOUS PRICE: {previous_price}'
-                msg = MIMEMultipart()
-                msg["From"] = EMAIL_ADDRESS
-                msg["To"] = 'rohitpidishetty@gmail.com'
-                msg["Subject"] = f'Merchandise request by {name}'
-                msg.attach(MIMEText(message, "plain"))
-                server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-                server.starttls()  # Secure connection
-                server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)  # Login
-                server.sendmail(EMAIL_ADDRESS, to_email, msg.as_string())  # Send email
-                server.quit()
-                return JsonResponse({"status": 200})
-            except Exception as e:
-                return JsonResponse({"status": 400, 'err': e})
+            # try:
+            #     message = f'NAME: {name}\nEMAIL: {email}\n PHONE: {phone}\nPRODUCT: {product}\nPRICE: {price}\nPREVIOUS PRICE: {previous_price}'
+            #     msg = MIMEMultipart()
+            #     msg["From"] = EMAIL_ADDRESS
+            #     msg["To"] = 'rohitpidishetty@gmail.com'
+            #     msg["Subject"] = f'Merchandise request by {name}'
+            #     msg.attach(MIMEText(message, "plain"))
+            #     server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+            #     server.starttls()  # Secure connection
+            #     server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)  # Login
+            #     server.sendmail(EMAIL_ADDRESS, to_email, msg.as_string())  # Send email
+            #     server.quit()
+            #     return JsonResponse({"status": 200})
+            # except Exception as e:
+            #     return JsonResponse({"status": 400, 'err': e})
         except Exception as e:
             return JsonResponse({"status": 400, 'err2': e})
         
