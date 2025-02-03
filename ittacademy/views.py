@@ -48,6 +48,7 @@ def approval(request):
             state = {"state": "unchanged"}
         return JsonResponse(state)
 
+@csrf_exempt
 def purchase(request):
     if request.method == 'POST':
         try:
