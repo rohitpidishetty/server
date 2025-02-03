@@ -54,12 +54,9 @@ def purchase(request):
         try:
             data = json.loads(request.body)
             details = data['payload']
-            name = details['name']
-            email = details['email']
-            phone = details['phone']
-            order = details['order']
+ 
           
-            return JsonResponse({"details": order})
+            return JsonResponse({"details": details})
         except Exception as e:
             return JsonResponse({"message": "Server broke"}, status=400)
         
