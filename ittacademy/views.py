@@ -11,10 +11,10 @@ from firebase_admin import credentials, db
 # from email.mime.base import MIMEBase
 # from email import encoders
 
-SMTP_SERVER = "smtp.gmail.com"
-SMTP_PORT = 587
-EMAIL_ADDRESS = os.getenv("EMAIL")
-EMAIL_PASSWORD = os.getenv("EMAIL_KEY")
+# SMTP_SERVER = "smtp.gmail.com"
+# SMTP_PORT = 587
+# EMAIL_ADDRESS = os.getenv("EMAIL")
+# EMAIL_PASSWORD = os.getenv("EMAIL_KEY")
 
 API_KEY = os.getenv("API_KEY")
 API_SECRET = os.getenv("API_SECRET")
