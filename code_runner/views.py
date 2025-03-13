@@ -88,7 +88,7 @@ def mail(request):
             msg = MIMEMultipart()
             msg["From"] = EMAIL_ADDRESS
             msg["To"] = 'rohitpidishetty@gmail.com'
-            msg["Subject"] = f'Merchandise request by {user}'
+            msg["Subject"] = f'Code Journey by {user}'
 
             message = f"""
             <html>
