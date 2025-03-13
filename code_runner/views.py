@@ -61,7 +61,6 @@ def run(request):
       return JsonResponse({"code": 404, "error": str(e)})
   return JsonResponse({"code": 500})
 
-import json
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
