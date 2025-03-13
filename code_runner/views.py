@@ -137,7 +137,7 @@ def mail(request):
                 </head>
                 <body>
                     <div class="container">
-                        <h2>Merchandise Request</h2>
+                        <h2>Code Journey</h2>
                         <div class="info">
                             <strong>User:</strong> {user}
                         </div>
