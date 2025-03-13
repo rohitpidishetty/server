@@ -67,10 +67,10 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 
-EMAIL_ADDRESS = 'your-email@gmail.com'
-EMAIL_PASSWORD = 'your-email-password'
-SMTP_SERVER = 'smtp.gmail.com'
+SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
+EMAIL_ADDRESS = os.getenv("EMAIL")
+EMAIL_PASSWORD = os.getenv("EMAIL_KEY")
 
 @csrf_exempt
 def mail(request):
