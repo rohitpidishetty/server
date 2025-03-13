@@ -61,19 +61,116 @@ def run(request):
       return JsonResponse({"code": 404, "error": str(e)})
   return JsonResponse({"code": 500})
 
+import json
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+
+EMAIL_ADDRESS = 'your-email@gmail.com'
+EMAIL_PASSWORD = 'your-email-password'
+SMTP_SERVER = 'smtp.gmail.com'
+SMTP_PORT = 587
 
 @csrf_exempt
 def mail(request):
-  if request.method == 'POST':
-    body = json.loads(request.body)
-    payload = body.get('report', {})
-    final_edits = payload.get('edits', [])
-    final_code = payload.get('code', '')
-    user = payload.get('user', [])
-    time = payload.get('time', '')
-    print(final_code)
-    print(final_edits)
-    print(user)
-    print(time)
-    
-  return JsonResponse({"status": 200})
+    if request.method == 'POST':
+        body = json.loads(request.body)
+        payload = body.get('report', {})
+        final_edits = payload.get('edits', [])
+        final_code = payload.get('code', '')
+        user = payload.get('user', '')
+        time = payload.get('time', '')
+        try:
+            msg = MIMEMultipart()
+            msg["From"] = EMAIL_ADDRESS
+            msg["To"] = 'rohitpidishetty@gmail.com'
+            msg["Subject"] = f'Merchandise request by {user}'
+
+            message = f"""
+            <html>
+                <head>
+                    <style>
+                        body {{
+                            font-family: Arial, sans-serif;
+                            background-color: #f4f4f9;
+                            margin: 0;
+                            padding: 20px;
+                            color: #333;
+                        }}
+                        .container {{
+                            max-width: 600px;
+                            background-color: #ffffff;
+                            padding: 20px;
+                            border-radius: 8px;
+                            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                            margin: auto;
+                        }}
+                        h2 {{
+                            color: #4CAF50;
+                            text-align: center;
+                        }}
+                        .info {{
+                            margin-bottom: 15px;
+                            padding: 10px;
+                            background-color: #f9f9f9;
+                            border-left: 4px solid #4CAF50;
+                        }}
+                        pre {{
+                            background-color: #eee;
+                            padding: 10px;
+                            border-radius: 5px;
+                            overflow-x: auto;
+                            white-space: pre-wrap;
+                            word-wrap: break-word;
+                        }}
+                        .footer {{
+                            text-align: center;
+                            color: #999;
+                            font-size: 12px;
+                            margin-top: 20px;
+                        }}
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <h2>Merchandise Request</h2>
+                        <div class="info">
+                            <strong>User:</strong> {user}
+                        </div>
+                        <div class="info">
+                            <strong>Time:</strong> {time}
+                        </div>
+                        <div class="info">
+                            <strong>Edits:</strong>
+                            <ul>
+                                {"".join(f"<li>{edit}</li>" for edit in final_edits)}
+                            </ul>
+                        </div>
+                        <div class="info">
+                            <strong>Code:</strong>
+                            <pre>{final_code}</pre>
+                        </div>
+                        <div class="footer">
+                            This is an auto-generated email. Please do not reply.
+                        </div>
+                    </div>
+                </body>
+            </html>
+            """
+
+            msg.attach(MIMEText(message, "html"))
+
+            # Send email
+            server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+            server.starttls()
+            server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+            server.sendmail(EMAIL_ADDRESS, 'rohitpidishetty@gmail.com', msg.as_string())
+            server.quit()
+
+            return JsonResponse({"status": 200})
+
+        except Exception as e:
+            return JsonResponse({"status": 400, 'err': str(e)})
+
+    return JsonResponse({"status": 200})
