@@ -17,11 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from ittacademy import views as itta
+from code_runner import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(f'user', itta.create_user, name='create_user'),
     path(f'approval', itta.approval, name='approval'),
-    path(f'purchase', itta.purchase, name='purchase') 
+    path(f'purchase', itta.purchase, name='purchase'),
+    path('python/', views.run, name='run'),
+    path('mail/', views.mail, name='mail')
 ]
 
