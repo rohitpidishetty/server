@@ -24,7 +24,7 @@ urlpatterns = [
     path(f'user', itta.create_user, name='create_user'),
     path(f'approval', itta.approval, name='approval'),
     path(f'purchase', itta.purchase, name='purchase'),
-    path('python/', views.run, name='run'),
+    path('run/', views.run, name='run'),
     path('mail/', views.mail, name='mail')
 ]
 
