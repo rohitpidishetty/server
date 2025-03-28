@@ -132,7 +132,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     "https://itt-academy.web.app",
-    "http://localhost:3000/",
+    # "http://localhost:3000/",
     "https://code-journey-py.web.app/"
 ]
 
