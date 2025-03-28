@@ -9,6 +9,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import requests
 
+def welcome(request):
+  return JsonResponse({"message": "welcome"})
+
 def average_typing_speed(content):
   start = content[0]
   end = content[len(content)-1]
