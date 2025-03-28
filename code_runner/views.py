@@ -7,6 +7,7 @@ import os
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import requests
 
 def average_typing_speed(content):
   start = content[0]
@@ -50,17 +51,38 @@ def run(request):
   if request.method == "POST":
     body = json.loads(request.body)
     payload = body.get('code', [])
+    language = body.get('language', 'Python')
     try:
-      code = payload[len(payload)-1].get('inputValue')
-      output = io.StringIO()
-      sys.stdout = output 
-      exec(code)
-      result = output.getvalue()
-      sys.stdout = sys.__stdout__
       speed = average_typing_speed(content=payload)
+      code = payload[len(payload)-1].get('inputValue')
       jumps = context_jumps(payload)
-      print(jumps)
-      return JsonResponse({"code": 200, "result": result.strip().replace('\n', '<br>'), "speed": speed, "context_jumps":jumps, "payload":payload})
+      if language == 'Python':
+        output = io.StringIO()
+        sys.stdout = output 
+        exec(code)
+        result = output.getvalue()
+        sys.stdout = sys.__stdout__
+        # print(jumps)
+        return JsonResponse({"code": 200, "result": result.strip().replace('\n', '<br>'), "speed": speed, "context_jumps":jumps, "payload":payload})
+      elif language == 'C':
+        url = "https://glot.io/api/run/c/latest/"
+        headers = {
+            "Authorization": "Token 3d590e12-ca4d-47b9-be76-32b3c41b602e",
+            "Content-Type": "application/json"
+        }
+        data = {
+            "language": "c",
+            "files": [
+                {
+                    "name": "main.c",
+                    "content": code
+                }
+            ]
+        }
+        
+        response = requests.post(url, json=data, headers=headers)
+        result = response.json()
+        return JsonResponse({"code": 200, "result": result['stdout'].strip().replace('\n', '<br>'), "speed": speed, "context_jumps":jumps, "payload":payload})
     except Exception as e:
       return JsonResponse({"code": 404, "error": str(e)})
   return JsonResponse({"code": 500})
