@@ -65,9 +65,9 @@ def run(request):
         # print(jumps)
         return JsonResponse({"code": 200, "result": result.strip().replace('\n', '<br>'), "speed": speed, "context_jumps":jumps, "payload":payload})
       elif language == 'C':
-        url = "https://glot.io/api/run/c/latest/"
+        url = os.getenv("C_URL")
         headers = {
-            "Authorization": "Token 3d590e12-ca4d-47b9-be76-32b3c41b602e",
+            "Authorization": os.getenv("C_TOKEN"),
             "Content-Type": "application/json"
         }
         data = {
